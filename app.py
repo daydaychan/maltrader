@@ -7,6 +7,7 @@ import logging
 import os
 import time
 
+
 try:
     import md5
     import urllib2
@@ -148,10 +149,15 @@ class Exchange(db.Model):
     secretKey = db.Column(db.Text)
     date = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
 
+# Ensure database tables are created
+with app.app_context():
+    db.create_all()
 
-db.create_all()
-db.session.commit()
+# if __name__ == '__main__':
+#     app.run(debug=False, threaded=True, host='127.0.0.1', port=5000)
 
+# db.create_all()
+#db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
